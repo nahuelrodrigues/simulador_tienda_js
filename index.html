@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MI DIETÉTICA</title>
+    <!-- [CDN LINK] Deslizar Imágenes // Slider touch // Swiper 6.7.0  -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+    <!-- [CDN LINK] Iconos copados // Font Awesome Free 5.15.3  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <!--CSS-->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- HEADER-->
+    <header>
+      <!-- HEADER 1 REDES Y TEL-->
+      <div id="header" class="header-1">
+        <div class="share">
+          <span> Redes Sociales : </span>
+          <a href="#" class="fab fa-facebook-f"></a>
+          <a href="#" class="fab fa-twitter"></a>
+          <a href="#" class="fab fa-instagram"></a>
+        </div>
+
+        <div class="call">
+          <span> LLamanos : </span>
+          <a href="#">11 2270-9412</a>
+        </div>
+      </div>
+      <!-- HEADER 2 TITULO Y BUSCAR-->
+      <div class="header-2">
+        <a href="#" class="logo">
+          <i class="fas fa-seedling"></i> MI DIETÉTICA
+        </a>
+
+        <form id="buscar" action="" class="search-bar-container">
+          <input
+            type="search"
+            id="search-bar"
+            placeholder="Buscar..."
+            onkeypress="enter(event)"
+          />
+          <label for="search-bar" class="fas fa-search"></label>
+        </form>
+      </div>
+      <!-- HEADER 3 MENU BAR-->
+      <div class="header-3">
+        <div id="menu-bar" class="fas fa-bars"></div>
+        <nav class="navbar">
+          <a href="#header">Inicio</a>
+          <a href="#categoria">Categoría</a>
+          <a href="#productos">Producto</a>
+          <a href="#envios">Envíos</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+
+        <div class="icons">
+          <a href="#contenedorCarrito" class="fas fa-shopping-cart"></a>
+          <a href="#" class="fas fa-heart"></a>
+          <a href="#" class="fas fa-user-circle"></a>
+        </div>
+      </div>
+    </header>
+
+    <!-- FIN HEADER -->
+
+    <!-- SECCIÓN SLIDER  -->
+
+    <section class="home" id="home">
+      <div class="swiper-container home-slider">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="box" style="background: url(images/slider1.jpg)">
+              <div class="content">
+                <span>%50 de descuento</span>
+                <h3>Arma tu mix!</h3>
+                <a href="#" class="btn">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="box" style="background: url(images/slider2.jpg)">
+              <div class="content">
+                <span>%45 de descuento</span>
+                <h3>Frutos secos</h3>
+                <a href="#" class="btn">Comprar</a>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="box" style="background: url(images/slider3.jpg)">
+              <div class="content">
+                <span>65% de descuento</span>
+                <h3>Cereales</h3>
+                <a href="#" class="btn">Comprar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-pagination"></div>
+      </div>
+    </section>
+
+    <!-- FIN SECCIÓN SLIDER -->
+
+    <!-- SECCIÓN NUEVOS PRODUCTOS  -->
+
+    <section class="banner-container">
+      <div class="banner">
+        <img src="images/banner1.jpg" alt="" />
+        <div class="content">
+          <span>nuevos productos</span>
+          <h3>Yogures</h3>
+          <a href="#" class="btn">Comprar</a>
+        </div>
+      </div>
+      <div class="banner">
+        <img src="images/banner2.jpg" alt="" />
+        <div class="content">
+          <span>nuevos productos</span>
+          <h3>Mozzarella</h3>
+          <a href="#" class="btn">Comprar</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FIN "NUEVOS PRODUCTOS" -->
+
+    <!-- SECCIÓN DE "CATEGORÍAS"  -->
+
+    <section class="category" id="category">
+      <h1 id="categoria" class="heading">Buscar por categorías</h1>
+
+      <div class="box-container">
+        <div class="box">
+          <img src="images/cat1.jpg" alt="" />
+          <div class="content">
+            <h3>Cereales</h3>
+            <a href="#" class="btn">Comprar</a>
+          </div>
+        </div>
+        <div class="box">
+          <img src="images/cat2.jpg" alt="" />
+          <div class="content">
+            <h3>Legumbres</h3>
+            <a href="#" class="btn">Comprar</a>
+          </div>
+        </div>
+        <div class="box">
+          <img src="images/cat3.jpg" alt="" />
+          <div class="content">
+            <h3>Frutos Secos</h3>
+            <a href="#" class="btn">Comprar</a>
+          </div>
+        </div>
+        <div class="box">
+          <img src="images/cat4.jpg" alt="" />
+          <div class="content">
+            <h3>Semillas</h3>
+            <a href="#" class="btn">Comprar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FIN DE SECCIÓN CATEGORÍAS-->
+
+    <!-- SECCIÓN PRODUCTOS  -->
+
+    <section class="product" id="product">
+      <h1 id="productos" class="heading">Productos</h1>
+
+      <div id="contenedorProductos" class="box-container"></div>
+    </section>
+
+    <!-- FIN SECCIÓN PRODUCTOS -->
+
+    <!-- SECCIÓN CARRITO  -->
+    <section id="contenedorCarrito">
+      <h1 id="carritoTitulo" class="heading">Carrito</h1>
+      <div id="productosAgregados"></div>
+    </section>
+
+    <!-- SECCIÓN CONTACTO // FORMULARIO -->
+
+    <section class="contact" id="contact">
+      <h1 id="contacto" class="heading">Contacto</h1>
+
+      <div class="row">
+        <iframe
+          class="map"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3282.458477483857!2d-58.587264384769234!3d-34.643122580449194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc78efa4b5b4b%3A0x76f37d62c908b15d!2sMiraflores%2033%2C%20B1706ERA%20Haedo%2C%20Provincia%20de%20Buenos%20Aires!5e0!3m2!1ses-419!2sar!4v1622730182265!5m2!1ses-419!2sar"
+          allowfullscreen=""
+          loading="lazy"
+        ></iframe>
+
+        <form id="formulario" action="">
+          <div class="inputBox">
+            <input id="input1" type="text" required />
+            <label>nombre</label>
+          </div>
+          <div class="inputBox">
+            <input id="input2" type="email" required />
+            <label>e-mail</label>
+          </div>
+          <div class="inputBox">
+            <input id="input3" type="number" required />
+            <label>teléfono</label>
+          </div>
+          <div class="inputBox">
+            <textarea
+              required
+              name=""
+              id="input4"
+              cols="30"
+              rows="10"
+            ></textarea>
+            <label>mensaje</label>
+          </div>
+          <button href="#contacto" id="btnEnviar" value="Enviar" class="btn">
+            Enviar
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- FIN SECCIÓN CONTACTO // FORMULARIO-->
+
+    <!-- SECCIÓN FOOTER  -->
+
+    <section class="footer">
+      <div class="box-container">
+        <div class="box">
+          <h3>Acerca de nosotros</h3>
+          <p>
+            Este es mi proyecto para el curso de JavaScript de Coder-House. La
+            idea es que sea una especie de e-commerce súper básica, y poder
+            volcar los contenidos vistos en clase dentro del proyecto.
+          </p>
+        </div>
+        <div class="box">
+          <h3>Información</h3>
+          <a href="#">Cómo comprar</a>
+          <a href="#">Preguntas Frecuentes</a>
+          <a href="#">Políticas de Privacidad</a>
+          <a href="#">Franquicias</a>
+        </div>
+        <div class="box">
+          <h3>Links</h3>
+          <a href="#">Inicio</a>
+          <a href="#">Categoría</a>
+          <a href="#">Producto</a>
+          <a href="#">Envíos</a>
+          <a href="#">Contacto</a>
+        </div>
+        <div class="box">
+          <h3>Redes Sociales</h3>
+          <a href="#">facebook</a>
+          <a href="#">twitter</a>
+          <a href="#">instagram</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FIN SECCIÓN FOOTER -->
+
+    <!-- BOTÓN DE SCROLL-UP-->
+    <a href="#home" class="scroll-top fas fa-angle-up"></a>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- MI SCRIPT JS -->
+    <script src="script.js"></script>
+  </body>
+</html>
