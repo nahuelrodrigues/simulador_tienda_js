@@ -4,6 +4,131 @@
 :root {
   --green: #3a9943;
 }
+
+/* SECCIÓN INGRESO DE USUARIO */
+/* BACKGROUND CON TRANSPARENCIA */
+#lean_overlay {
+  position: fixed;
+  z-index: 10000;
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  background: #000;
+  display: none;
+}
+/* SECCIÓN SIGNUP */
+#signup {
+  width: 404px;
+  padding-bottom: 2px;
+
+  display: none;
+
+  background: #fff;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0 0px 4px rgba(0, 0, 0, 0.7);
+}
+
+#signup-header {
+  background: #ece9e6; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom,
+    #ffffff,
+    #ece9e6
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #ffffff,
+    #ece9e6
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  padding: 18px 18px 14px 18px;
+  border-bottom: 1px solid #ccc;
+  border-top-left-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-right-radius: 5px;
+}
+
+#signup-header h2 {
+  color: #444;
+  font-size: 2em;
+  font-weight: 700;
+  margin-bottom: 3px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+#signup-header p {
+  color: #444;
+  font-size: 1.3em;
+  margin: 0;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+  text-shadow: none;
+}
+
+#signup .txt-fld {
+  position: relative;
+  width: 364px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #eee;
+  text-align: right;
+}
+#signup .btn-fld {
+  width: 254px;
+  overflow: hidden;
+  padding: 12px 20px 12px 130px;
+}
+
+#signup .txt-fld label {
+  display: block;
+  float: left;
+  width: 90px;
+  padding-top: 8px;
+  color: #222;
+  font-size: 1.3em;
+  text-align: left;
+}
+#signup .txt-fld input {
+  width: 244px;
+  padding: 8px;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  font-size: 1.2em;
+  color: #222;
+  background: #f7f7f7;
+  font-family: "Helvetica Neue";
+  outline: none;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #e7e6e6;
+  border-bottom: 1px solid #e7e6e6;
+}
+
+button {
+  float: right;
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  background: #3f9d4a;
+  border: none;
+  width: auto;
+  overflow: visible;
+  font-size: 1.4em;
+  color: #fff;
+  padding: 7px 10px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  font-weight: bold;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* FIN - SECCIÓN INGRESO DE USUARIO */
+
 /* CARRITO NUEVO CREADO CON JS */
 
 #carritoTotal {
@@ -104,20 +229,6 @@ section {
 
 .btn:hover {
   background: #333;
-}
-#btnRespuesta {
-  background: #f12711; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #f5af19,
-    #f12711
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #f5af19,
-    #f12711
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  cursor: unset;
 }
 
 /* HEADER */
@@ -545,7 +656,7 @@ section {
   font-size: 1.5rem;
   color: #666;
 }
-label {
+#formulario label {
   padding-left: 1.5rem;
 }
 /* SECCION FOOTER */

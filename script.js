@@ -90,7 +90,6 @@ carritoTotal.innerHTML =
   localStorage.getItem("Total-Carrito");
 carritoTotal.id = "carritoTotal";
 contenedorCarrito.appendChild(carritoTotal);
-console.log(localStorage.getItem("Total-Carrito"));
 
 // Creo una función para ir agregando al carrito
 function agregarCarrito(id, cantidad) {
@@ -182,18 +181,52 @@ let formularioEnviado = false;
 
 // creo la respuesta incrustando html.
 function submit() {
-  let btnRespuesta = document.createElement("div");
-  btnRespuesta.id = "btnRespuesta";
-  btnRespuesta.className = "btn";
-  btnRespuesta.innerHTML = "Se ha enviado correctamente";
   // creo un flag
   if (!formularioEnviado) {
     formularioEnviado = true;
-    formulario.appendChild(btnRespuesta);
+    swal("Enviado!", "Su formulario fue enviado correctamente!", "success");
   }
 }
 
 /////////////// EVENTO : ANIMACIONES & INTERACCIONES //////////
+
+//APPENDEO AL BODY UN DIV(SIGN UP) OCULTO  PARA QUE EL USUARIO INGRESE
+$("body").append(`<div id="signup" style="display: none">
+<div id="signup-ct">
+  <div id="signup-header">
+    <h2>Iniciar sesión</h2>
+    <p>¿No tienes una cuenta? <a href="#">Registrate!</a></p>
+  </div>
+
+  <form action="">
+    <div class="txt-fld">
+      <label for="">Usuario</label>
+      <input name="" type="text" required/>
+    </div>
+    <div class="txt-fld">
+      <label for="">E-mail</label>
+      <input  name="" type="email" required />
+    </div>
+    <div class="txt-fld">
+      <label for="">Contraseña</label>
+      <input  name="" type="password" required />
+    </div>
+    <div class="btn-fld">
+      <button type="submit">Entrar</button>
+    </div>
+  </form>
+</div>
+</div> `);
+
+//CAPTURAR TECLA ENTER EN LA BARRA DE BÚSQUEDA DEL HEADER2 (lupita), Y MOSTRAR QUÉ ES LO ESCRIBÍ CON SWEET ALERT
+$("#buscar").change((e) => {
+  swal("Productos: ", e.target.value);
+});
+
+// BOTON ENVIO, ALERTA EN CONSTRUCCION
+$("#envios").on("click", function alertaEnvio() {
+  swal("Error!", "Sección en construcción", "error");
+});
 
 // declarando variables Y querySelectors
 let menu = document.querySelector("#menu-bar");

@@ -16,6 +16,8 @@
     />
     <!--CSS-->
     <link rel="stylesheet" href="style.css" />
+    <!-- jQuery - Ingreso de Usuario -->
+    <script type="text/javascript" src="jquery.leanModal.min.js"></script>
   </head>
   <body>
     <!-- HEADER-->
@@ -45,7 +47,7 @@
             type="search"
             id="search-bar"
             placeholder="Buscar..."
-            onkeypress="enter(event)"
+            onkeypress="(event)"
           />
           <label for="search-bar" class="fas fa-search"></label>
         </form>
@@ -57,14 +59,14 @@
           <a href="#header">Inicio</a>
           <a href="#categoria">Categoría</a>
           <a href="#productos">Producto</a>
-          <a href="#envios">Envíos</a>
+          <a id="envios"href="#envios">Envíos</a>
           <a href="#contacto">Contacto</a>
         </nav>
 
         <div class="icons">
           <a href="#contenedorCarrito" class="fas fa-shopping-cart"></a>
           <a href="#" class="fas fa-heart"></a>
-          <a href="#" class="fas fa-user-circle"></a>
+          <a id="user" href="#signup" class="fas fa-user-circle"></a>
         </div>
       </div>
     </header>
@@ -274,8 +276,12 @@
 
     <!-- BOTÓN DE SCROLL-UP-->
     <a href="#home" class="scroll-top fas fa-angle-up"></a>
-
+    <!-- SWEET ALERT -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- SCRIPT DE SWIPER -->
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <!-- SCRIPT jQUERY -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <!-- MI SCRIPT JS -->
     <script src="script.js"></script>
