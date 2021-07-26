@@ -23,7 +23,7 @@
     <!-- HEADER-->
     <header>
       <!-- HEADER 1 REDES Y TEL    -->
-      <div id="header" class="header-1">
+      <div id="header" class="header-1 header-info">
         <div class="share">
           <span> Redes Sociales : </span>
           <a href="#" class="fab fa-facebook-f"></a>
@@ -41,31 +41,21 @@
         <a href="#" class="logo">
           <i class="fas fa-seedling"></i> MI DIETÉTICA
         </a>
-
-        <form id="buscar" action="" class="search-bar-container">
-          <input
-            type="search"
-            id="search-bar"
-            placeholder="Buscar..."
-            onkeypress="(event)"
-          />
-          <label for="search-bar" class="fas fa-search"></label>
-        </form>
       </div>
       <!-- HEADER 3 MENU BAR-->
       <div class="header-3">
         <div id="menu-bar" class="fas fa-bars"></div>
         <nav class="navbar">
           <a href="#header">Inicio</a>
-          <a href="#categoria">Categoría</a>
-          <a href="#productos">Producto</a>
-          <a id="envios"href="#envios">Envíos</a>
+          <a href="#categoria">Categorías</a>
+          <a href="#productos">Productos</a>
+          <a href="#envios">Envíos</a>
           <a href="#contacto">Contacto</a>
         </nav>
 
         <div class="icons">
           <a href="#contenedorCarrito" class="fas fa-shopping-cart"></a>
-          <a href="#" class="fas fa-heart"></a>
+
           <a id="user" href="#signup" class="fas fa-user-circle"></a>
         </div>
       </div>
@@ -146,28 +136,36 @@
           <img src="images/cat1.jpg" alt="" />
           <div class="content">
             <h3>Cereales</h3>
-            <a href="#" class="btn">Comprar</a>
+            <a href="#contenedorProductos" class="btn buscarCategoria"
+              >Buscar</a
+            >
           </div>
         </div>
         <div class="box">
           <img src="images/cat2.jpg" alt="" />
           <div class="content">
             <h3>Legumbres</h3>
-            <a href="#" class="btn">Comprar</a>
+            <a href="#contenedorProductos" class="btn buscarCategoria"
+              >Buscar</a
+            >
           </div>
         </div>
         <div class="box">
           <img src="images/cat3.jpg" alt="" />
           <div class="content">
             <h3>Frutos Secos</h3>
-            <a href="#" class="btn">Comprar</a>
+            <a href="#contenedorProductos" class="btn buscarCategoria"
+              >Buscar</a
+            >
           </div>
         </div>
         <div class="box">
           <img src="images/cat4.jpg" alt="" />
           <div class="content">
             <h3>Semillas</h3>
-            <a href="#" class="btn">Comprar</a>
+            <a href="#contenedorProductos" class="btn buscarCategoria"
+              >Buscar</a
+            >
           </div>
         </div>
       </div>
@@ -180,6 +178,10 @@
     <section class="product" id="product">
       <h1 id="productos" class="heading">Productos</h1>
 
+      <form id="buscar" action="" class="search-bar-container header-1">
+        <label for="search-bar" class="fas fa-search"></label>
+        <input type="search" id="search-bar" placeholder="Buscar..." />
+      </form>
       <div id="contenedorProductos" class="box-container"></div>
     </section>
 
@@ -189,6 +191,39 @@
     <section id="contenedorCarrito">
       <h1 id="carritoTitulo" class="heading">Carrito</h1>
       <div id="productosAgregados"></div>
+    </section>
+    <!-- FIN SEECION CARRITO-->
+
+    <!-- INICIO SECCION ENVIOS-->
+    <section id="envios" class="icons-container">
+      <div class="icon">
+        <img src="images/icon1.png" alt="" />
+        <div class="content">
+          <h3>Envío Gratuito</h3>
+          <p>Con tu compra mayor a $3000</p>
+        </div>
+      </div>
+      <div class="icon">
+        <img src="images/icon2.png" alt="" />
+        <div class="content">
+          <h3>Medios de pago</h3>
+          <p>Contamos con todos los medios de pago</p>
+        </div>
+      </div>
+      <div class="icon">
+        <img src="images/icon3.png" alt="" />
+        <div class="content">
+          <h3>Pago seguro</h3>
+          <p>Podés devolver tu pedido en 30 días.</p>
+        </div>
+      </div>
+      <div class="icon">
+        <img src="images/icon4.png" alt="" />
+        <div class="content">
+          <h3>Soporte 24/7</h3>
+          <p>Contactanos en cualquier momento!</p>
+        </div>
+      </div>
     </section>
 
     <!-- SECCIÓN CONTACTO // FORMULARIO -->

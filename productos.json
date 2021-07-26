@@ -1,0 +1,56 @@
+[
+  {
+    "id": 0,
+    "nombre": "Arroz",
+    "precio": 100,
+    "categoria": "cereales"
+  },
+  {
+    "id": 1,
+    "nombre": "Lenteja",
+    "precio": 150,
+    "categoria": "legumbres"
+  },
+  {
+    "id": 2,
+    "nombre": "Granola",
+    "precio": 350,
+    "categoria": "cereales"
+  },
+  {
+    "id": 3,
+    "nombre": "Maní con Cáscara",
+    "precio": 175,
+    "categoria": "legumbres"
+  },
+  {
+    "id": 4,
+    "nombre": "Poroto Aduki",
+    "precio": 170,
+    "categoria": "legumbres"
+  },
+  {
+    "id": 5,
+    "nombre": "Garbanzo",
+    "precio": 135,
+    "categoria": "legumbres"
+  },
+  {
+    "id": 6,
+    "nombre": "Chia",
+    "precio": 135,
+    "categoria": "semillas"
+  },
+  {
+    "id": 7,
+    "nombre": "Almendra",
+    "precio": 1150,
+    "categoria": "frutos secos"
+  },
+  {
+    "id": 8,
+    "nombre": "Nuez",
+    "precio": 1400,
+    "categoria": "frutos secos"
+  }
+]

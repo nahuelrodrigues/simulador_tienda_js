@@ -1,11 +1,28 @@
-//////////////////////////////////////////////////////////////
-//   SEGUNDA ENTREGA DE PROYECTO FINAL - NAHUEL RODRIGUES
-//////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+//   ENTREGA FINAL - SIMULADOR DE TIENDA PARA DIETÉTICA - NAHUEL RODRIGUES //
+/////////////////////////////////////////////////////////////////////////////
+
+///////////////////// ANOTACIONES //////////////////////////
+
+//   3   //
+
+// Buscar por Categorías ---> tienen un boton que dice comprar --> podrían ser Filtrar por producto.categoría
+// SI O SI
+
+//  4   //
+
+// ELIMINAR LA SECCIÓN CARRITO ---> podría ser la sección de ENVIOS con BANNER "tenemos delivery, quedate en casa"
+// O SI NO MODIFICAR EL DISEÑO DEL QUE YA EXISTE
+
+//  5   //
+
+// Que onda ese color de background :S ??? lo siento muy brillante, sobre todo en el formulario... quizás un color más obscuro resaltaría un poco más a los productos
+// El color del menu desplegable es horrible y combina mal con los botones.
 
 ////////////////// CREANDO OBJETOS Y ARRAYS //////////////////
 
 //declaro variable del precio del envio
-let precioEnvio = 100;
+let precioEnvio = 350;
 
 //clase Producto
 class Producto {
@@ -14,7 +31,6 @@ class Producto {
     this.nombre = nombre;
     this.precio = Number(precio);
     this.categoria = categoria;
-    this.estrellas = estrellas;
   }
   //calcula iva
   sumaIva() {
@@ -26,47 +42,81 @@ class Producto {
   }
 }
 
+//////////////////////////////////////////
+//  GETJSON
+//////////////////////////////////////////
+
+// URL de mi archivo JSON
+const URLJSON = "productos.json";
+
 //Declaramos un array de productos para almacenar nuestros objetos
 const productos = [];
-//Declaramos un array de productos para realizar operaciones
-const productosConImpuestos = [];
 
-// usamos el método push para agregar productos al array
-productos.push(new Producto(0, "Arroz", 100, "legumbres", 5));
-productos.push(new Producto(1, "Lenteja", 150, "legumbres", 3));
-productos.push(new Producto(2, "Granola", 350, "cereal", 4));
-productos.push(new Producto(3, "Maní con cáscara", 175, "legumbres", 4));
-productos.push(new Producto(4, "Poroto aduki", 170, "legumbres", 2));
-productos.push(new Producto(5, "Garbanzo", 135, "legumbres", 5));
-//Iteramos el array con for...of para sumarles impuestos de iva + envío
-for (const producto of productos) {
-  productosConImpuestos.push({
-    nombre: producto.nombre,
-    precioConIva: producto.sumaIva(),
-    precioConIvaYEnvio: producto.sumaEnvio(),
-  });
+$.getJSON(URLJSON, function (respuesta, estado) {
+  if (estado === "success") {
+    let misDatos = respuesta;
+
+    // ARMO UN ARRAY CON LOS PRODUCTOS DEL ARCHIVO JSON
+    for (const producto of misDatos) {
+      productos.push({
+        id: producto.id,
+        nombre: producto.nombre,
+        precio: producto.precio,
+        categoria: producto.categoria,
+      });
+    }
+    // RELLENAR
+    for (const dato of misDatos) {
+      $("#contenedorProductos").append(crearProducto(dato));
+    }
+  }
+});
+
+// API DE WHATSAPP
+function wsp(string, numero) {
+  window.open(
+    `https://api.whatsapp.com/send?phone=+541122709412&text=Hola, estoy interesado en su producto ${string} de $${numero} quisiera saber más información sobre el producto.`,
+    "_blank"
+  );
 }
 
-////////////////// CREANDO ELEMENTOS EN HTML CON DOM - JS /////////////////
-
-// ASIGNO UNA VARIABLE AL contenedorProductos POR ID
-var contenedorProductos = document.getElementById("contenedorProductos");
-// CREO UN FOR...OF PARA RECORRER EL ARRAY DE PRODUCTO Y GENERAR LAS "CARDS"
-for (const producto of productos) {
-  // CREO UNA VARIABLE CON EL CONTENIDO HTML DE LA "CARD", PARA GENERARLO CON JS
-  var card =
-    `<div id="caja" class="box"><span class="discount">-20%</span><div class="icons"><a href="#" class="fas fa-heart"></a><a href="#" class="fas fa-share"></a><a href="#" class="fas fa-eye"></a></div><img src="images/product` +
+//////////////////// FILTROS ////////////////////
+//////////////////// FILTRO DE BUSQUEDA ////////////////////
+function crearProducto(producto) {
+  return (
+    `<div id="caja" class="box"><span class="discount">-20%</span><div class="icons"></a><a href="#contenedorCarrito" onclick="agregarProductosCarrito(${producto.id},${producto.precio},'${producto.nombre}')" class="fas fa-shopping-cart"></a><a onclick="wsp('${producto.nombre}',${producto.precio})" href="#" class="fab fa-whatsapp"></a></div><img src="images/product` +
     producto.id +
     `.jpg" alt="" /><h3 id="titulo1">` +
     producto.nombre +
     `</h3><div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div><div class="quantity"><span> Cantidad : </span><input id="inputKilo${producto.id}" type="number" min="1" max="100" value="1" /></div><div id="precio1" class="price">$` +
     producto.precio +
-    `<span></span></div><a href="#contenedorCarrito" id="boton${producto.id}" class="btn">Agregar al carrito</a></div>`;
-  //CREO LA CARTA DENTRO DE contenedorProductos CON .innerHTML
-  contenedorProductos.innerHTML += card;
+    `<span></span></div><a href="#contenedorCarrito" id="${producto.id}" onclick="agregarProductosCarrito(${producto.id},${producto.precio},'${producto.nombre}')"  class="btn btn-carrito">Agregar al carrito</a></div>`
+  );
 }
 
-//////////////////// GUARDO EN LOCAL STORAGE Y JSON ///////////////////////
+$("#buscar").keypress((e) => {
+  const busqueda = e.target.value.toLowerCase();
+  const resultados = productos.filter((producto) => {
+    const nombre = producto.nombre.toLowerCase();
+    const categoria = producto.categoria.toLowerCase();
+    return nombre.includes(busqueda) || categoria.includes(busqueda);
+  });
+  $("#contenedorProductos").empty().append(resultados.map(crearProducto));
+});
+
+//////////////////// FILTRO POR CATEGORIA ////////////////////
+$(".buscarCategoria").click(buscarCategoria);
+function buscarCategoria(event) {
+  const categoria = event.target.parentElement.innerText
+    .split("\n")[0]
+    .toLowerCase();
+  const resultados = productos.filter((producto) => {
+    return producto.categoria.toLowerCase() === categoria;
+  });
+  $("#contenedorProductos").empty().append(resultados.map(crearProducto));
+}
+
+//////////////////// GUARDO EN LOCAL STORAGE Y JSON //////////////////
 
 // Guardo los productos en el LocalStorage
 const guardarLocal = (clave, valor) => {
@@ -77,13 +127,13 @@ for (const producto of productos) {
   guardarLocal(producto.id, JSON.stringify(producto));
 }
 
-//////////////////// CARRITO //////////////////////////////////////////////
+//////////////////// CARRITO /////////////////////////////////////////
 
 // INICIALIZO MI CARRITO EN 0 EN LOCALSTORAGE
 const totalCarrito = 0;
 localStorage.setItem("Total-Carrito", totalCarrito);
 
-// Creo el resultado total de la compra (inicializado en 0)
+// Creo el CARRITO con su resultado total de la compra (inicializado en 0)
 let carritoTotal = document.createElement("div");
 carritoTotal.innerHTML =
   "El total de su compra es de <strong>$ " +
@@ -91,20 +141,43 @@ carritoTotal.innerHTML =
 carritoTotal.id = "carritoTotal";
 contenedorCarrito.appendChild(carritoTotal);
 
-// Creo una función para ir agregando al carrito
-function agregarCarrito(id, cantidad) {
-  // CALCULO CANTIDAD de KG indexados X PRECIO con iva
-  precioProducto = parseInt(cantidad) * productosConImpuestos[id].precioConIva;
+/////////// FUNCIONES CARRITO ///////////
+
+function accionBoton() {
+  const btnCarrito = document.getElementsByClassName("btn-carrito");
+  // RECORRO TODOS LOS BOTONES
+  for (const boton of btnCarrito) {
+    boton.addEventListener("click", (event) => {
+      const botonClick = event.target;
+      let productoAgregado = productos.find((data) => data.id == botonClick.id);
+      agregarProductosCarrito(
+        productoAgregado.id,
+        productoAgregado.precio,
+        productoAgregado.nombre
+      );
+    });
+  }
+}
+// AGREGO PRODUCTOS AL CARRITO
+function agregarProductosCarrito(id, precio, nombre) {
+  // GUARDO EL VALOR INDEXADO POR USUARIO
+  let cantidad = document.getElementById(`inputKilo${id}`).value;
+  // MULTIPLICO CANTIDAD DE UNIDADES POR PRECIO DEL PRODUCTO
+  let precioProducto = parseInt(cantidad) * precio;
   let carrito = document.createElement("div");
-  // Creé una sección nueva en HTML llamada "productosAgregados", y la busco por ID.
+  carrito.addEventListener("click", (e) => {
+    e.target.remove();
+  });
+
   let productosAgregados = document.getElementById("productosAgregados");
-  // Que diga qué producto eligió, cuantos kilos, y cual es el precio total.
+  // GENERO UN DIV POR CADA PRODUCTO AGREGADO
   carrito.innerHTML =
+    nombre +
+    " x " +
     cantidad +
-    "kg de " +
-    productosConImpuestos[id].nombre +
-    " = $ " +
-    parseFloat(precioProducto).toFixed(2);
+    "u = $ " +
+    parseFloat(precioProducto).toFixed(2) +
+    " [X]";
   carrito.id = "carrito";
   // lo agrego
   productosAgregados.appendChild(carrito);
@@ -113,26 +186,6 @@ function agregarCarrito(id, cantidad) {
   // actualizo estado de carrito
   actualizarCarrito();
 }
-
-// TOMO LOS VALORES DEL INPUT DEL BOTON "agregar a carrito" Y AGREGO A CARRITO
-document.getElementById(`boton0`).addEventListener("click", function () {
-  agregarCarrito(0, document.getElementById("inputKilo0").value);
-});
-document.getElementById(`boton1`).addEventListener("click", function () {
-  agregarCarrito(1, document.getElementById("inputKilo1").value);
-});
-document.getElementById(`boton2`).addEventListener("click", function () {
-  agregarCarrito(2, document.getElementById("inputKilo2").value);
-});
-document.getElementById(`boton3`).addEventListener("click", function () {
-  agregarCarrito(3, document.getElementById("inputKilo3").value);
-});
-document.getElementById(`boton4`).addEventListener("click", function () {
-  agregarCarrito(4, document.getElementById("inputKilo4").value);
-});
-document.getElementById(`boton5`).addEventListener("click", function () {
-  agregarCarrito(5, document.getElementById("inputKilo5").value);
-});
 
 // Creo funcion para sumar el total de las compras
 function sumarTotal(precioSumar) {
@@ -190,6 +243,18 @@ function submit() {
 
 /////////////// EVENTO : ANIMACIONES & INTERACCIONES //////////
 
+// PUBLICIDAD POP-UP
+//apendeo con display none una publi
+$("body").prepend(
+  '<div class="ads-popup" id="js-iframeremove" style="display: none"><div class="ads-popup-wrap"><div class="ads-popup-overlay"></div><div class="ads-popup-container"><img id="img-popup"src="images/pop-up.jpg" alt=""><div class="ads-popup-close">&times;</div></div></div></div>'
+);
+// que aparezca a los 5 secs de navegación
+$(".ads-popup").css("opacity", "1").slideUp(2000).delay(5000).slideDown(2000);
+//Click cerrar ventana y desaparecer
+$(".ads-popup-overlay, .ads-popup-close").click(function () {
+  $(".ads-popup-wrap").fadeOut();
+});
+
 //APPENDEO AL BODY UN DIV(SIGN UP) OCULTO  PARA QUE EL USUARIO INGRESE
 $("body").append(`<div id="signup" style="display: none">
 <div id="signup-ct">
@@ -217,16 +282,6 @@ $("body").append(`<div id="signup" style="display: none">
   </form>
 </div>
 </div> `);
-
-//CAPTURAR TECLA ENTER EN LA BARRA DE BÚSQUEDA DEL HEADER2 (lupita), Y MOSTRAR QUÉ ES LO ESCRIBÍ CON SWEET ALERT
-$("#buscar").change((e) => {
-  swal("Productos: ", e.target.value);
-});
-
-// BOTON ENVIO, ALERTA EN CONSTRUCCION
-$("#envios").on("click", function alertaEnvio() {
-  swal("Error!", "Sección en construcción", "error");
-});
 
 // declarando variables Y querySelectors
 let menu = document.querySelector("#menu-bar");
