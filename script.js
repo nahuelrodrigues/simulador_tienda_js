@@ -1,30 +1,16 @@
-/////////////////////////////////////////////////////////////////////////////
-//   ENTREGA FINAL - SIMULADOR DE TIENDA PARA DIETÉTICA - NAHUEL RODRIGUES //
-/////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////
+///// ENTREGA FINAL - SIMULADOR DE TIENDA PARA DIETÉTICA ////
+/////////////////// NAHUEL RODRIGUES ////////////////////////
+/////////////////////////////////////////////////////////////
 
-///////////////////// ANOTACIONES //////////////////////////
+////////////////////////////////////////////////////////////
+////////////////// CREANDO OBJETOS Y ARRAYS ////////////////
+////////////////////////////////////////////////////////////
 
-//   3   //
-
-// Buscar por Categorías ---> tienen un boton que dice comprar --> podrían ser Filtrar por producto.categoría
-// SI O SI
-
-//  4   //
-
-// ELIMINAR LA SECCIÓN CARRITO ---> podría ser la sección de ENVIOS con BANNER "tenemos delivery, quedate en casa"
-// O SI NO MODIFICAR EL DISEÑO DEL QUE YA EXISTE
-
-//  5   //
-
-// Que onda ese color de background :S ??? lo siento muy brillante, sobre todo en el formulario... quizás un color más obscuro resaltaría un poco más a los productos
-// El color del menu desplegable es horrible y combina mal con los botones.
-
-////////////////// CREANDO OBJETOS Y ARRAYS //////////////////
-
-//declaro variable del precio del envio
+// Declaro variable del precio del envio
 let precioEnvio = 350;
 
-//clase Producto
+// Clase Producto
 class Producto {
   constructor(id, nombre, precio, categoria, estrellas) {
     this.id = id;
@@ -32,26 +18,27 @@ class Producto {
     this.precio = Number(precio);
     this.categoria = categoria;
   }
-  //calcula iva
+  // Método : calcular iva
   sumaIva() {
     return this.precio * 1.21;
   }
-  //calcula iva + envío
+  // Método : calcular iva + envío
   sumaEnvio() {
     return this.precio * 1.21 + precioEnvio;
   }
 }
 
 //////////////////////////////////////////
-//  GETJSON
+//////////////  GETJSON  /////////////////
 //////////////////////////////////////////
 
 // URL de mi archivo JSON
 const URLJSON = "productos.json";
 
-//Declaramos un array de productos para almacenar nuestros objetos
+// Declaramos un array vacío para almacenar los productos
 const productos = [];
 
+// Pido URL JSON
 $.getJSON(URLJSON, function (respuesta, estado) {
   if (estado === "success") {
     let misDatos = respuesta;
@@ -65,14 +52,14 @@ $.getJSON(URLJSON, function (respuesta, estado) {
         categoria: producto.categoria,
       });
     }
-    // RELLENAR
+    // Recorro mis productos y genero un div "caja" por cada producto
     for (const dato of misDatos) {
       $("#contenedorProductos").append(crearProducto(dato));
     }
   }
 });
 
-// API DE WHATSAPP
+// API DE WHATSAPP - Contacta al usuario con un mensaje prediseñado al dueño de la tienda.
 function wsp(string, numero) {
   window.open(
     `https://api.whatsapp.com/send?phone=+541122709412&text=Hola, estoy interesado en su producto ${string} de $${numero} quisiera saber más información sobre el producto.`,
@@ -80,7 +67,10 @@ function wsp(string, numero) {
   );
 }
 
-//////////////////// FILTROS ////////////////////
+////////////////////////////////////////////////////////////
+//////////////////// FILTROS ///////////////////////////////
+////////////////////////////////////////////////////////////
+
 //////////////////// FILTRO DE BUSQUEDA ////////////////////
 function crearProducto(producto) {
   return (
@@ -93,7 +83,7 @@ function crearProducto(producto) {
     `<span></span></div><a href="#contenedorCarrito" id="${producto.id}" onclick="agregarProductosCarrito(${producto.id},${producto.precio},'${producto.nombre}')"  class="btn btn-carrito">Agregar al carrito</a></div>`
   );
 }
-
+// Filtro los productos desde la barra de búsqueda
 $("#buscar").keypress((e) => {
   const busqueda = e.target.value.toLowerCase();
   const resultados = productos.filter((producto) => {
@@ -105,6 +95,8 @@ $("#buscar").keypress((e) => {
 });
 
 //////////////////// FILTRO POR CATEGORIA ////////////////////
+
+// Filtro los productos por categoría
 $(".buscarCategoria").click(buscarCategoria);
 function buscarCategoria(event) {
   const categoria = event.target.parentElement.innerText
@@ -116,18 +108,19 @@ function buscarCategoria(event) {
   $("#contenedorProductos").empty().append(resultados.map(crearProducto));
 }
 
-//////////////////// GUARDO EN LOCAL STORAGE Y JSON //////////////////
+//////////// GUARDO EN LOCAL STORAGE Y JSON //////////////////
 
 // Guardo los productos en el LocalStorage
 const guardarLocal = (clave, valor) => {
   localStorage.setItem(clave, valor);
 };
-// recorro el array de productos y lo convierto en JSON
+// Recorro el array de productos y lo convierto en JSON
 for (const producto of productos) {
   guardarLocal(producto.id, JSON.stringify(producto));
 }
-
-//////////////////// CARRITO /////////////////////////////////////////
+////////////////////////////////////////////////////////////
+//////////////////// CARRITO ///////////////////////////////
+////////////////////////////////////////////////////////////
 
 // INICIALIZO MI CARRITO EN 0 EN LOCALSTORAGE
 const totalCarrito = 0;
@@ -141,8 +134,11 @@ carritoTotal.innerHTML =
 carritoTotal.id = "carritoTotal";
 contenedorCarrito.appendChild(carritoTotal);
 
-/////////// FUNCIONES CARRITO ///////////
+///////////////////////////////////////////////////////////
+//////////////// FUNCIONES CARRITO ////////////////////////
+///////////////////////////////////////////////////////////
 
+// Agrego botón de agregar carrito
 function accionBoton() {
   const btnCarrito = document.getElementsByClassName("btn-carrito");
   // RECORRO TODOS LOS BOTONES
@@ -158,6 +154,7 @@ function accionBoton() {
     });
   }
 }
+
 // AGREGO PRODUCTOS AL CARRITO
 function agregarProductosCarrito(id, precio, nombre) {
   // GUARDO EL VALOR INDEXADO POR USUARIO
@@ -165,10 +162,6 @@ function agregarProductosCarrito(id, precio, nombre) {
   // MULTIPLICO CANTIDAD DE UNIDADES POR PRECIO DEL PRODUCTO
   let precioProducto = parseInt(cantidad) * precio;
   let carrito = document.createElement("div");
-  carrito.addEventListener("click", (e) => {
-    e.target.remove();
-  });
-
   let productosAgregados = document.getElementById("productosAgregados");
   // GENERO UN DIV POR CADA PRODUCTO AGREGADO
   carrito.innerHTML =
@@ -176,8 +169,7 @@ function agregarProductosCarrito(id, precio, nombre) {
     " x " +
     cantidad +
     "u = $ " +
-    parseFloat(precioProducto).toFixed(2) +
-    " [X]";
+    parseFloat(precioProducto).toFixed(2);
   carrito.id = "carrito";
   // lo agrego
   productosAgregados.appendChild(carrito);
@@ -196,7 +188,7 @@ function sumarTotal(precioSumar) {
   localStorage.setItem("Total-Carrito", sumaTotal);
 }
 
-// creo función para actualizar el estado del Carrito y agrego el precio con envío.
+// Creo función para actualizar el estado del Carrito y agrego el precio con envío.
 function actualizarCarrito() {
   let precioFinalConEnvio =
     parseFloat(localStorage.getItem("Total-Carrito")) + precioEnvio;
@@ -207,14 +199,15 @@ function actualizarCarrito() {
     parseFloat(precioFinalConEnvio).toFixed(2);
 }
 
+////////////////////////////////////////////////////////////////
 ///////////////////     FORMULARIO     /////////////////////////
+////////////////////////////////////////////////////////////////
 
 const miFormulario = document.getElementById("formulario");
 let botonEnviar = document.getElementById("btnEnviar");
 const evento2 = "click";
 
-// creo una función que me permita generar una respuesta al usuario incrustando html x js.
-// siempre y cuando haya completado todo el formulario
+// Creo función para validar los inputs
 function validacion() {
   if (
     formulario.input1.value &&
@@ -228,11 +221,11 @@ function validacion() {
       formulario.removeChild(btnRespuesta);
   }
 }
-
+// Escucho el evento del usuario.
 botonEnviar.addEventListener(evento2, validacion);
 let formularioEnviado = false;
 
-// creo la respuesta incrustando html.
+// Creo función para enviar un SweetAlert al usuario.
 function submit() {
   // creo un flag
   if (!formularioEnviado) {
@@ -241,21 +234,24 @@ function submit() {
   }
 }
 
+///////////////////////////////////////////////////////////////
 /////////////// EVENTO : ANIMACIONES & INTERACCIONES //////////
+///////////////////////////////////////////////////////////////
 
 // PUBLICIDAD POP-UP
-//apendeo con display none una publi
+// Apendeo con display none una publi
 $("body").prepend(
   '<div class="ads-popup" id="js-iframeremove" style="display: none"><div class="ads-popup-wrap"><div class="ads-popup-overlay"></div><div class="ads-popup-container"><img id="img-popup"src="images/pop-up.jpg" alt=""><div class="ads-popup-close">&times;</div></div></div></div>'
 );
-// que aparezca a los 5 secs de navegación
+// Que aparezca a los 5 secs de navegación
 $(".ads-popup").css("opacity", "1").slideUp(2000).delay(5000).slideDown(2000);
-//Click cerrar ventana y desaparecer
+// Click cerrar ventana y desaparecer
 $(".ads-popup-overlay, .ads-popup-close").click(function () {
   $(".ads-popup-wrap").fadeOut();
 });
 
-//APPENDEO AL BODY UN DIV(SIGN UP) OCULTO  PARA QUE EL USUARIO INGRESE
+// SIGN IN & LOG IN DEL USUARIO
+// APPENDEO AL BODY UN DIV (SIGN UP) OCULTO PARA QUE EL USUARIO INGRESE
 $("body").append(`<div id="signup" style="display: none">
 <div id="signup-ct">
   <div id="signup-header">
@@ -283,7 +279,8 @@ $("body").append(`<div id="signup" style="display: none">
 </div>
 </div> `);
 
-// declarando variables Y querySelectors
+// MENÚ RESPONSIVE
+// Declarando variables Y querySelectors
 let menu = document.querySelector("#menu-bar");
 let navbar = document.querySelector(".navbar");
 let header = document.querySelector(".header-3");
@@ -297,6 +294,7 @@ menu.addEventListener("click", () => {
   navbar.classList.toggle("active");
 });
 
+// SCROLLING Y BOTÓN PARA VOLVER HACIA ARRIBA
 //Si el usuario scrollea
 window.onscroll = () => {
   //quita fa-times
@@ -323,9 +321,9 @@ window.onscroll = () => {
   }
 };
 
+// GALERÍA DE IMÁGENES SWIPER
 // Swiperv6.6.2 - Most Modern Mobile Touch Slider
 // MANUAL : https://swiperjs.com/get-started
-
 //inicializando swiper
 var swiper = new Swiper(".home-slider", {
   pagination: {
