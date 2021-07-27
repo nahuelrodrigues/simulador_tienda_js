@@ -853,7 +853,7 @@ section {
     top: 100%;
     left: 0;
     right: 0;
-    background: green;
+    background: var(--green);
     padding: 1rem 2rem;
     border-top: 0.1rem solid rgba(0, 0, 0, 0.3);
     clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
@@ -869,16 +869,16 @@ section {
     padding: 1.5rem;
     border-radius: 0.5rem;
     border: 0.1rem solid rgba(0, 0, 0, 0.3);
-    background: #a1ffce; /* fallback for old browsers */
+    background: #ffefba; /* fallback for old browsers */
     background: -webkit-linear-gradient(
-      to right,
-      #faffd1,
-      #a1ffce
+      to bottom,
+      #ffffff,
+      #ffefba
     ); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(
-      to right,
-      #faffd1,
-      #a1ffce
+      to bottom,
+      #ffffff,
+      #ffefba
     ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
     text-align: center;
