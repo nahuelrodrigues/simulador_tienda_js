@@ -9,6 +9,8 @@
 
 // Declaro variable del precio del envio
 let precioEnvio = 350;
+// creo un array vacío
+const productosCarrito = [];
 
 // Clase Producto
 class Producto {
@@ -84,7 +86,11 @@ function crearProducto(producto) {
   );
 }
 // Filtro los productos desde la barra de búsqueda
-$("#buscar").keypress((e) => {
+$("#search-bar").keydown((e) => {
+  // evito que me refresque la página con la tecla enter
+  if (e.keyCode === 13) {
+    e.preventDefault();
+  }
   const busqueda = e.target.value.toLowerCase();
   const resultados = productos.filter((producto) => {
     const nombre = producto.nombre.toLowerCase();
@@ -157,35 +163,52 @@ function accionBoton() {
 
 // AGREGO PRODUCTOS AL CARRITO
 function agregarProductosCarrito(id, precio, nombre) {
+  let currentProduct = productosCarrito.find((p) => p.id === id);
   // GUARDO EL VALOR INDEXADO POR USUARIO
   let cantidad = document.getElementById(`inputKilo${id}`).value;
   // MULTIPLICO CANTIDAD DE UNIDADES POR PRECIO DEL PRODUCTO
   let precioProducto = parseInt(cantidad) * precio;
-  let carrito = document.createElement("div");
   let productosAgregados = document.getElementById("productosAgregados");
-  // GENERO UN DIV POR CADA PRODUCTO AGREGADO
-  carrito.innerHTML =
-    nombre +
-    " x " +
-    cantidad +
-    "u = $ " +
-    parseFloat(precioProducto).toFixed(2);
-  carrito.id = "carrito";
-  // lo agrego
-  productosAgregados.appendChild(carrito);
-  // calculo total
-  sumarTotal(precioProducto);
-  // actualizo estado de carrito
-  actualizarCarrito();
+
+  if (currentProduct) {
+    productosCarrito.splice(productosCarrito.indexOf(currentProduct), 1);
+    productosCarrito.push({
+      id,
+      nombre,
+      cantidad,
+      precio: precioProducto,
+    });
+  } else {
+    productosCarrito.push({ id, nombre, cantidad, precio: precioProducto });
+  }
+
+  productosAgregados.innerHTML = "";
+  productosCarrito.forEach((producto) => {
+    let carrito = document.createElement("div");
+    carrito.innerHTML =
+      producto.nombre +
+      " x " +
+      producto.cantidad +
+      "u = $ " +
+      parseFloat(producto.precio).toFixed(2);
+    carrito.id = "carrito";
+    // lo agrego
+    productosAgregados.appendChild(carrito);
+    // calculo total
+    sumarTotal(productosCarrito);
+    // actualizo estado de carrito
+    actualizarCarrito();
+  });
 }
 
 // Creo funcion para sumar el total de las compras
-function sumarTotal(precioSumar) {
-  // tomo el valor actual de localStorage
-  let totalActual = Number(localStorage.getItem("Total-Carrito"));
-  let sumaTotal = totalActual + precioSumar;
+function sumarTotal(productos) {
+  const total = productos.reduce((acc, curr) => {
+    acc = acc + curr.precio;
+    return acc;
+  }, 0);
   // y lo guardo actualizado
-  localStorage.setItem("Total-Carrito", sumaTotal);
+  localStorage.setItem("Total-Carrito", total);
 }
 
 // Creo función para actualizar el estado del Carrito y agrego el precio con envío.
